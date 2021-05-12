@@ -7,18 +7,27 @@ import java.util.stream.Stream;
 
 public class MatrixIt implements Iterator<Integer> {
     private final int[][] data;
-    private int[] rsl;
-    private int elem = 0;
+    private int row = 0;
+    private int column = 0;
 
     public MatrixIt(int[][] data) {
         this.data = data;
-        rsl = new int[Stream.of(data).mapToInt(x -> x.length).sum()];
-        rsl = Stream.of(data).flatMapToInt(Arrays::stream).toArray();
     }
 
     @Override
     public boolean hasNext() {
-        return elem < rsl.length;
+        int rslSum = 0;
+        for (int[] sum : data) {
+            rslSum += sum.length;
+        }
+        if (rslSum == 0) {
+            return false;
+        }
+        while (data[row].length == 0 || column == data[row].length) {
+          row++;
+          column = 0;
+      }
+        return column < data[row].length;
     }
 
     @Override
@@ -26,6 +35,6 @@ public class MatrixIt implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return rsl[elem++];
+        return data[row][column++];
     }
 }
