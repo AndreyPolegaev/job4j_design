@@ -74,15 +74,15 @@ public class FlatMapTest {
         assertThat(1, is(flat.next()));
     }
 
-//    @Test  ???
-//    public void whenSeveralEmptyThenReturnFalse() {
-//        Iterator<Iterator<?>> it = List.of(
-//                List.of().iterator(),
-//                List.of().iterator(),
-//                List.of().iterator(),
-//                List.of().iterator()
-//        );
-//        FlatMap flat = new FlatMap(it);
-//        assertFalse(flat.hasNext());
-//    }
+    @Test
+    public void whenSeveralEmptyThenReturnFalse() {
+        Iterator<Iterator<Object>> it = List.of(
+                List.of().iterator(),
+                List.of().iterator(),
+                List.of().iterator(),
+                List.of().iterator()
+        ).iterator();
+        FlatMap flat = new FlatMap(it);
+        assertTrue(flat.hasNext());
+    }
 }
