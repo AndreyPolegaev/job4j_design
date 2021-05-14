@@ -55,10 +55,4 @@ public class EvenIteratorTest {
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(8));
     }
-
-    @Test
-    public void whenChangesArrayForEach() {
-        it = new EvenIt(new int[] {1, 2, 3, 4});
-        it.forEachRemaining(x -> System.out.println(Math.pow(2, x)));
-    }
 }

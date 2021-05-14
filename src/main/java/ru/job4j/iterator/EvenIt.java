@@ -36,8 +36,4 @@ public class EvenIt implements Iterator<Integer> {
         return nextElement;
     }
 
-    @Override
-    public void forEachRemaining(Consumer<? super Integer> action) {
-      Arrays.stream(numbers).boxed().forEach(action);
-    }
 }

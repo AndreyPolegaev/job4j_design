@@ -7,8 +7,9 @@ import java.util.Objects;
 public class SimpleArray<T> implements Iterable<T> {
 
     private int count = 0;
-    private T[] data;
+    private final T[] data;
 
+    @SuppressWarnings("unchecked")
     public SimpleArray(int size) {
         this.data = ((T[]) new Object[size]);
     }
@@ -35,8 +36,8 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     @Override
-    public Iterator iterator() {
-        return new SimpleArrayIterator(data);
+    public Iterator<T> iterator() {
+        return new SimpleArrayIterator<>(data, count);
     }
 
     @Override

@@ -5,19 +5,18 @@ import java.util.NoSuchElementException;
 
 public class SimpleArrayIterator<T> implements Iterator<T> {
 
-    private T[] data;
-    int count = 0;
+    private final T[] data;
+    int iteratorCount = 0;
+    int count;
 
-    public SimpleArrayIterator(T[] data) {
+    public SimpleArrayIterator(T[] data, int count) {
         this.data = data;
+        this.count = count;
     }
 
     @Override
     public boolean hasNext() {
-        while (count < data.length) {
-            return true;
-        }
-        return false;
+        return iteratorCount < count;
     }
 
     @Override
@@ -25,6 +24,6 @@ public class SimpleArrayIterator<T> implements Iterator<T> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return data[count++];
+        return data[iteratorCount++];
     }
 }
