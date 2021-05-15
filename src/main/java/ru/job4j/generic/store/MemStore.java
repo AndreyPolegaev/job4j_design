@@ -18,9 +18,9 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean replace(String id, T model) {
-        for (T temp : mem) {
-            if (temp.getId().equals(id)) {
-                mem.set(mem.indexOf(temp), model);
+        for (int i = 0; i < mem.size(); i++) {
+            if (mem.get(i).getId().equals(id)) {
+                mem.set(i, model);
                 return true;
             }
         }
@@ -29,11 +29,7 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean delete(String id) {
-        mem.removeIf(x -> {
-            x.getId().equals(id);
-                return true;
-        });
-        return false;
+       return mem.removeIf(el -> el.getId().equals(id));
     }
 
     @Override
