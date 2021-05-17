@@ -4,9 +4,7 @@ package ru.job4j.generic.arraylist;
  * modCount = 0; счетчик модификаций массива
  */
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 public class SimpleArray<T> implements Iterable<T> {
 
@@ -21,7 +19,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public T get(int index) {
         int getIndex = Objects.checkIndex(index, size);
-        return (T) container[getIndex];
+        return container[getIndex];
     }
 
     public void add(T model) {
@@ -40,7 +38,27 @@ public class SimpleArray<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new SimpleArrayIterator<>(container, modCount, size);
+        Iterator<T> it = new Iterator<T>() {
+            int iteratorCount = 0;
+            final int expectedModCount = modCount;
+
+            @Override
+            public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                return iteratorCount < size;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return container[iteratorCount++];
+            }
+        };
+        return it;
     }
 
     @Override
