@@ -1,4 +1,4 @@
-package ru.job4j.generic.deleteheadlinkedlist;
+package ru.job4j.generic.simplestack;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -41,9 +41,13 @@ public class ForwardLinked<T> implements Iterable<T> {
             forDelete = tail;
             tail = tail.next;
         }
-        value = forDelete.value;
+        value = forDelete.next.value;
         forDelete.next = null;
         return value;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
     }
 
     @Override
