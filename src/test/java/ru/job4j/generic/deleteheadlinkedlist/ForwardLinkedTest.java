@@ -1,4 +1,4 @@
-package ru.job4j.generic.simplestack;
+package ru.job4j.generic.deleteheadlinkedlist;
 
 import org.junit.Test;
 import java.util.Iterator;

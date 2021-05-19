@@ -1,4 +1,4 @@
-package ru.job4j.generic.simplestack;
+package ru.job4j.generic.deleteheadlinkedlist;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
