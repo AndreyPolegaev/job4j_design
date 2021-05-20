@@ -32,6 +32,13 @@ public class ListUtilsTest {
     }
 
     @Test
+    public void whenAddAfterLast2() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6));
+        ListUtils.addAfter(input, 2, 100);
+        assertThat(Arrays.asList(0, 1, 2, 100, 3, 4, 5, 6), Is.is(input));
+    }
+
+    @Test
     public void whenPredicate() {
         List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
         ListUtils.removeIf(list, x -> x % 2 == 0);
