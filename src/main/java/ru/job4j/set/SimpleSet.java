@@ -2,6 +2,7 @@ package ru.job4j.set;
 
 import ru.job4j.generic.arraylist.SimpleArray;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class SimpleSet<T> implements Set<T> {
 
@@ -19,7 +20,7 @@ public class SimpleSet<T> implements Set<T> {
     @Override
     public boolean contains(T value) {
         for (T temp : set) {
-            if (temp == null || temp.equals(value)) {     // откуда взялся тут метод equals ?
+            if (Objects.equals(temp, value)) {
                 return true;
             }
         }
