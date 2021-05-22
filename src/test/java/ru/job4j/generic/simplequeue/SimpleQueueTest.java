@@ -51,7 +51,7 @@ public class SimpleQueueTest {
     }
 
     @Test
-    public void vwewvwevv() {
+    public void whenThreePushThenAllPoll() {
         SimpleQueue<Integer> queue = new SimpleQueue<>();
         queue.push(1);
         queue.push(2);
