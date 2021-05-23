@@ -18,7 +18,7 @@ public class SimpleQueue<T> {
     }
 
     private void exChange() {
-        while (out.isEmpty() || !in.isEmpty()) {
+        while (!in.isEmpty()) {
             out.push(in.pop());
         }
     }
