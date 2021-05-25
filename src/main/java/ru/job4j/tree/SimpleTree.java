@@ -33,11 +33,12 @@ class SimpleTree<E> implements Tree<E> {
 
     @Override
     public boolean add(E parent, E child) {
-        if (findBy(parent).isPresent()) {
-            Node<E> node = findBy(parent).get();
-            if (!node.children.contains(child)) {
-                node.children.add(new Node<>(child));
-                return true;
+        Optional<Node<E>> nodeSearch = findBy(parent);
+        if (nodeSearch.isPresent()) {
+            Node<E> nodeParent = nodeSearch.get();
+            Optional<Node<E>> searchChild = findByPredicate(x -> x.value.equals(child));
+            if (searchChild.isEmpty()) {
+                nodeParent.children.add(new Node<>(child));
             }
         }
         return false;
