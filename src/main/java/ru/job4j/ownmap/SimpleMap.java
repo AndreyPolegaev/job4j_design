@@ -14,8 +14,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     private int modCount = 0;
 
-    int countIterator = 0;
-
     private MapEntry<K, V>[] table = new MapEntry[capacity];
 
     @Override
@@ -81,7 +79,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public Iterator<K> iterator() {
+
         Iterator<K> it = new Iterator<K>() {
+            int countIterator = 0;
             MapEntry<K, V> mapNext = new MapEntry<>(null, null);
             final int expectedModCount = modCount;
 
