@@ -10,7 +10,7 @@ public class MultiplicationTable {
             for (int i = 1; i < 10; i++) {
                 out.write("\n\n".getBytes());
                 for (int j = 1; j < 10; j++) {
-                    out.write(String.valueOf(i * j + "\t").getBytes());
+                    out.write((i * j + "\t").getBytes());
                 }
             }
         } catch (Exception e) {
