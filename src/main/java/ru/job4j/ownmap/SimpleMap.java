@@ -61,14 +61,17 @@ public class SimpleMap<K, V> implements Map<K, V> {
             return null;
         }
         modCount++;
-        return table[index].value;
+        if (table[index].key.equals(key)) {
+            return table[index].value;
+        }
+        return null;
     }
 
     @Override
     public boolean remove(K key) {
         int hashResult = hash(key.hashCode());
         int index = indexFor(hashResult);
-        if (table[index] != null) {
+        if (table[index] != null && table[index].key.equals(key)) {
             table[index] = null;
             count--;
             modCount++;
