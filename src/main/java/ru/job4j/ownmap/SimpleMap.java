@@ -60,7 +60,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
         if (table[index] == null) {
             return null;
         }
-        modCount++;
         if (table[index].key.equals(key)) {
             return table[index].value;
         }
