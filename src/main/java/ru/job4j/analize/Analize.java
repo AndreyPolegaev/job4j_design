@@ -1,6 +1,7 @@
 package ru.job4j.analize;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Analize {
 
@@ -8,15 +9,21 @@ public class Analize {
         int changed = 0;
         int added = 0;
         int deleted = 0;
-        int rsl = current.size() - previous.size();
-        if (rsl > 0) {
-            added = rsl;
-        } else if (rsl < 0) {
-            deleted = Math.abs(current.size() - previous.size());
+        for (User temp : current) {
+            if (!previous.contains(temp)) {
+               added++;
+            }
         }
-        for (int i = 0; i < Math.min(current.size(), previous.size()); i++) {
-            if (!current.get(i).name.equals(previous.get(i).name)) {
-                changed++;
+        for (User temp : previous) {
+            if (!current.contains(temp)) {
+                deleted++;
+            }
+        }
+        for (User temp : previous) {
+            for (User temp2 : current) {
+                if (temp2.id == temp.id && !temp2.name.equals(temp.name)) {
+                    changed++;
+                }
             }
         }
         return new Info(added, changed, deleted);
@@ -29,6 +36,24 @@ public class Analize {
         public User(int id, String name) {
             this.id = id;
             this.name = name;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            User user = (User) o;
+            return id == user.id
+                    && Objects.equals(name, user.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, name);
         }
     }
 

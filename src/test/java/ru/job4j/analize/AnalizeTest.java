@@ -59,8 +59,28 @@ public class AnalizeTest {
                 new Analize.User(3, "name3")
         ));
         Analize.Info analizeInfo = analize.diff(listPrevious, listCurrent);
-        assertThat(analizeInfo.getAdded(), is(2));
+        assertThat(analizeInfo.getAdded(), is(4));
         assertThat(analizeInfo.getChanged(), is(2));
-        assertThat(analizeInfo.getDeleted(), is(0));
+        assertThat(analizeInfo.getDeleted(), is(2));
+    }
+
+    @Test
+    public void additionalTest() {
+        List<Analize.User> listCurrent  = new ArrayList<>(List.of(
+                new Analize.User(5, "Andrey"),
+                new Analize.User(7, "Natasha"),
+                new Analize.User(0, "Dima"),
+                new Analize.User(2, "Nikita")
+        ));
+        List<Analize.User> listPrevious  = new ArrayList<>(List.of(
+                new Analize.User(5, "Andrey"),
+                new Analize.User(7, "Vladimir"),
+                new Analize.User(0, "Dima"),
+                new Analize.User(1, "Olga")
+        ));
+        Analize.Info analizeInfo = analize.diff(listPrevious, listCurrent);
+        assertThat(analizeInfo.getAdded(), is(2));
+        assertThat(analizeInfo.getChanged(), is(1));
+        assertThat(analizeInfo.getDeleted(), is(2));
     }
 }
