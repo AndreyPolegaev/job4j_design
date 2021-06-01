@@ -6,6 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import java.io.*;
+import java.nio.file.Paths;
 
 public class AnalizyTest {
 
@@ -26,9 +27,10 @@ public class AnalizyTest {
         }
         new Analizy().unavailable(source.getAbsolutePath(), target.getAbsolutePath());
         StringBuilder sb = new StringBuilder();
-        BufferedReader buf = new BufferedReader(new FileReader(target));
         String ln = System.lineSeparator();
-        buf.lines().forEach(x -> sb.append(x).append(ln));
+        try (BufferedReader buf = new BufferedReader(new FileReader(target))) {
+            buf.lines().forEach(x -> sb.append(x).append(ln));
+        }
         assertThat(sb.toString(), is(
                    "10:57:01;10:59:01;"
                         + ln
@@ -51,9 +53,10 @@ public class AnalizyTest {
         }
         new Analizy().unavailable(source.getAbsolutePath(), target.getAbsolutePath());
         StringBuilder sb = new StringBuilder();
-        BufferedReader buf = new BufferedReader(new FileReader(target));
         String ln = System.lineSeparator();
-        buf.lines().forEach(x -> sb.append(x).append(ln));
+        try (BufferedReader buf = new BufferedReader(new FileReader(target))) {
+            buf.lines().forEach(x -> sb.append(x).append(ln));
+        }
         assertThat(sb.toString(), is(
                 "10:57:01;11:02:02;"
                         + ln
