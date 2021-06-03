@@ -12,33 +12,27 @@ package ru.job4j.io;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Analizy {
 
     public void unavailable(String source, String target) {
-        try (
-                BufferedReader bf = Files.newBufferedReader(Paths.get(source));
-                PrintWriter pr = new PrintWriter(new FileOutputStream(target))
-        ) {
-            List<String> list = bf.lines().collect(Collectors.toList()); // Сборка строк в лист
-            int index = 0;
-            StringBuilder sb = new StringBuilder();
-            for (int i = index; i < list.size(); i++) {
-                if (list.get(i).startsWith("400") || list.get(i).startsWith("500")) {
-                    index = i;
-                    String currentString; // текущая строка
-                    do {
-                        currentString = list.get(index++);
-                        sb
-                          .append(currentString.split(" ")[1])
-                          .append(";");
-                    } while (currentString.startsWith("400") || currentString.startsWith("500"));
-                    i = --index;
-                    String[] forWrite = sb.toString().split(";");
-                    pr.println(forWrite[0] + ";" + forWrite[forWrite.length - 1] + ";");  // запись в файл
-                    sb.delete(0, sb.length());
+        try (BufferedReader bf = Files.newBufferedReader(Paths.get(source));
+             PrintWriter pr = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
+            String str;
+            boolean isActive = true;
+            for (str = bf.readLine(); str != null; str = bf.readLine()) {
+                if (str.startsWith("400") || str.startsWith("500")) {
+                    if (isActive) {
+                        pr.print(str.split(" ")[1] + ";");
+                        isActive = false;
+                    }
+                }
+                if (!str.startsWith("400") && !str.startsWith("500")) {
+                    if (!isActive) {
+                        pr.print(str.split(" ")[1] + ";");
+                        pr.print(System.lineSeparator());
+                        isActive = true;
+                    }
                 }
             }
         } catch (IOException e) {
