@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 public class Search {
 
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
+        Path start = Paths.get("D:\\");
         search(start, p -> p.toFile().getName().endsWith("js")).forEach(System.out::println);
     }
 

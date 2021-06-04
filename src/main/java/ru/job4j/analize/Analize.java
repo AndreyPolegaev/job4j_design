@@ -1,31 +1,28 @@
 package ru.job4j.analize;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Analize {
 
+    private final Map<Integer, User> users = new HashMap<>();
+
     public Info diff(List<User> previous, List<User> current) {
-        int changed = 0;
         int added = 0;
+        int changed = 0;
         int deleted = 0;
-        for (User temp : current) {
-            if (!previous.contains(temp)) {
-               added++;
-            }
-        }
+        current.forEach(user -> users.putIfAbsent(user.id, user));
         for (User temp : previous) {
-            if (!current.contains(temp)) {
+            if (users.get(temp.id) != null && !users.get(temp.id).name.equals(temp.name)) {
+                changed++;
+            } else if (users.get(temp.id) == null) {
                 deleted++;
             }
         }
-        for (User temp : previous) {
-            for (User temp2 : current) {
-                if (temp2.id == temp.id && !temp2.name.equals(temp.name)) {
-                    changed++;
-                }
-            }
-        }
+        users.keySet().removeAll(previous.stream()
+                                         .map(x -> x.id)
+                                         .collect(Collectors.toSet()));
+        added = users.size();
         return new Info(added, changed, deleted);
     }
 
