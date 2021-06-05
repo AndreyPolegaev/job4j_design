@@ -60,7 +60,7 @@ public class AnalizeTest {
         ));
         Analize.Info analizeInfo = analize.diff(listPrevious, listCurrent);
         assertThat(analizeInfo.getAdded(), is(2));
-        assertThat(analizeInfo.getChanged(), is(2)); // +
+        assertThat(analizeInfo.getChanged(), is(2));
         assertThat(analizeInfo.getDeleted(), is(0));
     }
 

@@ -19,10 +19,7 @@ public class Analize {
                 deleted++;
             }
         }
-        users.keySet().removeAll(previous.stream()
-                                         .map(x -> x.id)
-                                         .collect(Collectors.toSet()));
-        added = users.size();
+        added = current.size() + deleted - previous.size();
         return new Info(added, changed, deleted);
     }
 
