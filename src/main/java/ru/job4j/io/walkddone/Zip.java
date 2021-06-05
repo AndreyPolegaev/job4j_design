@@ -13,12 +13,7 @@ import java.util.zip.ZipOutputStream;
 
 public class Zip {
 
-//    public void packFiles(List<Path> sources, File target) {
-//        // sources.forEach(x -> packSingleFile(x.toFile().getAbsoluteFile(), target));
-//       // packSingleFile(sources, target);
-//    }
-
-    public void packSingleFile(List<Path> sources, File target) {
+    public void packFiles(List<Path> sources, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
             for (Path p : sources) {
                 zip.putNextEntry(new ZipEntry(p.toString()));
@@ -26,7 +21,6 @@ public class Zip {
                     zip.write(out.readAllBytes());
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -36,8 +30,7 @@ public class Zip {
         ArgsName argsName = ArgsName.of(args);
         Predicate<Path> condition = p -> !p.toFile().getName().endsWith(argsName.get("e"));
         List<Path> list = Search.search(Paths.get(argsName.get("d")), condition);
-      //  list.forEach(x -> System.out.println(x));
         Zip zip = new Zip();
-        zip.packSingleFile(list, new File(argsName.get("o")));
+        zip.packFiles(list, new File(argsName.get("o")));
     }
 }
