@@ -4,6 +4,8 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -22,31 +24,30 @@ public class ConsoleChat {
     }
 
     public void run() {
+        List<String> answers = new ArrayList<>();
         String str = "";
         try (Scanner in = new Scanner(System.in);
              PrintWriter pw = new PrintWriter(new OutputStreamWriter(
                      new FileOutputStream(path), StandardCharsets.UTF_8))) {
-            M:
             while (!str.equals(OUT)) {
                 str = in.nextLine();
-                pw.println(str);
-                pw.flush();
+                answers.add(str);
                 if (str.equals(OUT)) {
                     continue;
                 }
                 if (str.equals(STOP)) {
                     while (!str.equals(CONTINUE)) {
                         str = in.nextLine();
-                        pw.println(str);
-                        pw.flush();
+                        answers.add(str);
                         if (str.equals(OUT)) {
-                            break M;
+                            answers.forEach(pw::println);
+                            return;
                         }
                     }
                 }
-                pw.println(answer());
-                pw.flush();
+                answers.add(answer());
             }
+            answers.forEach(pw::println);
         } catch (IOException e) {
             e.printStackTrace();
         }

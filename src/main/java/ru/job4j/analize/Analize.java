@@ -1,7 +1,6 @@
 package ru.job4j.analize;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Analize {
 
