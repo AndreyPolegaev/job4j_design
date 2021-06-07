@@ -26,9 +26,7 @@ public class ConsoleChat {
     public void run() {
         List<String> answers = new ArrayList<>();
         String str = "";
-        try (Scanner in = new Scanner(System.in);
-             PrintWriter pw = new PrintWriter(new OutputStreamWriter(
-                     new FileOutputStream(path), StandardCharsets.UTF_8))) {
+        try (Scanner in = new Scanner(System.in)) {
             while (!str.equals(OUT)) {
                 str = in.nextLine();
                 answers.add(str);
@@ -40,14 +38,19 @@ public class ConsoleChat {
                         str = in.nextLine();
                         answers.add(str);
                         if (str.equals(OUT)) {
-                            answers.forEach(pw::println);
-                            return;
+                            break;
                         }
                     }
                 }
-                answers.add(answer());
+                if (!str.equals(OUT)) {
+                    answers.add(answer());
+                }
             }
+            PrintWriter pw = new PrintWriter(new OutputStreamWriter(
+                    new FileOutputStream(path), StandardCharsets.UTF_8));
             answers.forEach(pw::println);
+            pw.flush();
+            pw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
