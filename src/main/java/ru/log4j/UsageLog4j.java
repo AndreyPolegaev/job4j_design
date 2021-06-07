@@ -27,5 +27,10 @@ public class UsageLog4j {
         LOG.debug("Our parameters: byte {}, short {}, int {}, long {}, double {}, float {}, char {}, boolean {}",
                         param1, param2, param3, param4, param5, param6, param7, param8);
 
+        try {
+            throw new Exception("Not supported code");
+        } catch (Exception e) {
+            LOG.debug("Exception in log example", e);
+        }
     }
 }
