@@ -46,11 +46,16 @@ public class ConsoleChat {
                     answers.add(answer());
                 }
             }
-            PrintWriter pw = new PrintWriter(new OutputStreamWriter(
-                    new FileOutputStream(path), StandardCharsets.UTF_8));
-            answers.forEach(pw::println);
+            write(answers);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void write(List<String> list) {
+        try (PrintWriter pw = new PrintWriter(path, StandardCharsets.UTF_8)) {
+            list.forEach(pw::println);
             pw.flush();
-            pw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
