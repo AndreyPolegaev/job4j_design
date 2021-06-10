@@ -1,16 +1,24 @@
 package ru.job4j.io.json;
 
 import com.google.gson.Gson;
-
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
+@XmlRootElement(name = "notebook")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Notebook {
 
-    private final boolean lastModel;
-    private final int price;
-    private final String model;
-    private final Suppliers suppliers;
-    private final String[] characteristics;
+    @XmlAttribute
+    private boolean lastModel;
+    @XmlAttribute
+    private int price;
+    @XmlAttribute
+    private String model;
+    private Suppliers suppliers;
+
+    @XmlElementWrapper(name = "characteristics")
+    @XmlElement(name = "characteristic")
+    private String[] characteristics;
 
     public Notebook(boolean lastModel, int price, String model, Suppliers suppliers, String... characteristics) {
         this.lastModel = lastModel;
@@ -20,15 +28,18 @@ public class Notebook {
         this.characteristics = characteristics;
     }
 
+    public Notebook() {
+    }
+
     @Override
     public String toString() {
         return "Notebook{"
-               + "lastModel=" + lastModel
-               + ", price=" + price
-               + ", model='" + model + '\''
-               + ", suppliers=" + suppliers
-               + ", characteristics=" + Arrays.toString(characteristics)
-               + '}';
+                + "lastModel=" + lastModel
+                + ", price=" + price
+                + ", model='" + model + '\''
+                + ", suppliers=" + suppliers
+                + ", characteristics=" + Arrays.toString(characteristics)
+                + '}';
     }
 
     public static void main(String[] args) {
@@ -68,21 +79,27 @@ public class Notebook {
 
 }
 
+@XmlRootElement(name = "suppliers")
 class Suppliers {
 
-    private final String name;
-    private final String address;
+    @XmlAttribute
+    private String name;
+    @XmlAttribute
+    private String address;
 
     public Suppliers(String name, String address) {
         this.name = name;
         this.address = address;
     }
 
+    public Suppliers() {
+    }
+
     @Override
     public String toString() {
         return "Suppliers{"
-               + "name='" + name + '\''
-               + ", address='" + address + '\''
-               + '}';
+                + "name='" + name + '\''
+                + ", address='" + address + '\''
+                + '}';
     }
 }
