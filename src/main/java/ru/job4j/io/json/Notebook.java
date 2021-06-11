@@ -4,20 +4,20 @@ import com.google.gson.Gson;
 import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
-@XmlRootElement(name = "notebook")
-@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlRootElement(name = "notebook")
+//@XmlAccessorType(XmlAccessType.FIELD)
 public class Notebook {
 
-    @XmlAttribute
+//    @XmlAttribute
     private boolean lastModel;
-    @XmlAttribute
+//    @XmlAttribute
     private int price;
-    @XmlAttribute
+//    @XmlAttribute
     private String model;
     private Suppliers suppliers;
 
-    @XmlElementWrapper(name = "characteristics")
-    @XmlElement(name = "characteristic")
+//    @XmlElementWrapper(name = "characteristics")
+//    @XmlElement(name = "characteristic")
     private String[] characteristics;
 
     public Notebook(boolean lastModel, int price, String model, Suppliers suppliers, String... characteristics) {
@@ -77,15 +77,34 @@ public class Notebook {
 
     }
 
+    public boolean isLastModel() {
+        return lastModel;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public Suppliers getSuppliers() {
+        return suppliers;
+    }
+
+    public String[] getCharacteristics() {
+        return characteristics;
+    }
 }
 
-@XmlRootElement(name = "suppliers")
+//@XmlRootElement(name = "suppliers")
 class Suppliers {
 
-    @XmlAttribute
-    private String name;
-    @XmlAttribute
-    private String address;
+//    @XmlAttribute
+    String name;
+//    @XmlAttribute
+    String address;
 
     public Suppliers(String name, String address) {
         this.name = name;
@@ -101,5 +120,13 @@ class Suppliers {
                 + "name='" + name + '\''
                 + ", address='" + address + '\''
                 + '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }

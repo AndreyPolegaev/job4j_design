@@ -3,20 +3,20 @@ package ru.job4j.io.jaxbjob4j;
 import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
-@XmlRootElement(name = "person")
-@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlRootElement(name = "person")
+//@XmlAccessorType(XmlAccessType.FIELD)
 public class Person {
 
-    @XmlAttribute
+//    @XmlAttribute
     private boolean sex;
 
-    @XmlAttribute
+//    @XmlAttribute
     private int age;
 
     private Contact contact;
 
-    @XmlElementWrapper(name = "statuses")
-    @XmlElement(name = "status")
+//    @XmlElementWrapper(name = "statuses")
+//    @XmlElement(name = "status")
     private String[] statuses;
 
     public Person() {
@@ -37,5 +37,21 @@ public class Person {
                 + ", contact=" + contact
                 + ", statuses=" + Arrays.toString(statuses)
                 + '}';
+    }
+
+    public boolean isSex() {
+        return sex;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public String[] getStatuses() {
+        return statuses;
     }
 }
