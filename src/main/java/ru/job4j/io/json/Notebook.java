@@ -102,9 +102,9 @@ public class Notebook {
 class Suppliers {
 
 //    @XmlAttribute
-    String name;
+    private String name;
 //    @XmlAttribute
-    String address;
+    private String address;
 
     public Suppliers(String name, String address) {
         this.name = name;
