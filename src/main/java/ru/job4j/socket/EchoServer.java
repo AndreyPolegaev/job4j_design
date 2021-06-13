@@ -30,15 +30,14 @@ public class EchoServer {
                     }
                     out.write("HTTP/1.1 200 OK\r\n\r\n");
                     out.flush();
-                    out.write("Hello, dear friend.\r\n\r\n");
-                    out.flush();
-                    if (answer.equals("Hello") || answer.equals("What")) {
-                        out.write(answer + "\r\n\r\n");
+
+                    if (answer.equals("Hello")) {
+                        out.write("Hello, dear friend.\r\n\r\n");
                         out.flush();
                     } else if (answer.equals("Exit")) {
                         server.close();
                     } else {
-                        out.write(answer + "\r\n\r\n");
+                        out.write("What" + "\r\n\r\n");
                         out.flush();
                     }
                     socket.close();
