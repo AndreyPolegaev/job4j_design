@@ -51,6 +51,11 @@ public class Start1 {
                 ultimate.put(temp.getKey(), merge);
             }
         }
+        ultimate.forEach((k, v) -> {
+            System.out.println(k);
+            v.forEach(System.out::println);
+            System.out.println();
+        });
         return ultimate;
     }
 
