@@ -13,8 +13,12 @@ package ru.job4j.filesearch;
 import ru.job4j.io.ArgsName;
 
 import java.awt.geom.IllegalPathStateException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
@@ -40,6 +44,14 @@ public class Find {
         return conditions;
     }
 
+    private static void write(String path, List<Path> list) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(path, StandardCharsets.UTF_8), true)) {
+            list.forEach(out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws IOException {
 
         /** валидация шаблона параметров и получение параметров */
@@ -63,7 +75,7 @@ public class Find {
         Files.walkFileTree(path, search);
 
         /** запись в файл */
-        search.getResult();
+        write(argsName.get("o"), search.getResult());
     }
 }
 

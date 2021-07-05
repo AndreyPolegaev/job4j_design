@@ -45,11 +45,7 @@ public class Search extends SimpleFileVisitor<Path> {
         return CONTINUE;
     }
 
-    public void getResult() {
-        try (PrintWriter out = new PrintWriter(new FileWriter(this.path, StandardCharsets.UTF_8), true)) {
-            list.forEach(out::println);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public List<Path> getResult() {
+        return this.list;
     }
 }
