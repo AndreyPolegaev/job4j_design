@@ -6,18 +6,18 @@
 --item - category = many-to-one + 
 --item - state = many-to-one
 
+CREATE TABLE role
+(
+    id serial PRIMARY KEY,
+    name varchar(64)
+);
+
 CREATE TABLE users
 (
 	id serial PRIMARY KEY, 
 	name varchar(64),
 	fk_role_id int REFERENCES role(id)
-); 
-
-CREATE TABLE role
-(
-	id serial PRIMARY KEY, 
-	name varchar(64)
-); 
+);
 
 CREATE TABLE rules
 (
