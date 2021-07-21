@@ -54,6 +54,7 @@ from car c
          join engine e on c.engine_id = e.id
          join transmission t on c.transmission_id = t.id;
 
+
 -- Детали, которые не используются НИ в одной машине, кузова, двигатели, коробки передач.
 select *from body b left join car c on b.id = c.body_id where c.id isnull;
 select *from engine e left join car c on e.id = c.body_id where c.id isnull;
