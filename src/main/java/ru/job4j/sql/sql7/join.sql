@@ -74,4 +74,4 @@ values ('Katia', 'female'),
        ('Volodia', 'male'),
        ('Stas', 'male');
 
-select distinct t1.name, t2.gender from teens t1 cross join teens t2;
+select t1.name, t2.gender from teens t1 cross join teens t2 WHERE t1.gender != t2.gender;;
